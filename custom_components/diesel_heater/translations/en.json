@@ -1,0 +1,22 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "Sign in with a WebUI account that has the Settings permission. Your password is only used once to fetch an API key and is not stored.",
+        "data": { "host": "Host / IP address", "username": "Username", "password": "Password" }
+      },
+      "mfa": {
+        "title": "Authentication code",
+        "description": "This account uses MFA. Enter the 6-digit code (or a recovery code).",
+        "data": { "code": "Code" }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the controller",
+      "invalid_auth": "Incorrect username or password, or the user lacks the Settings permission",
+      "invalid_code": "Incorrect authentication code"
+    },
+    "abort": { "already_configured": "This heater is already configured" }
+  }
+}

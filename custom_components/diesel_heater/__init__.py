@@ -61,6 +61,7 @@ class HeaterEntity(CoordinatorEntity[HeaterCoordinator]):
 
 
 CARD_URL = "/diesel_heater/diesel-heater-card.js"
+CARD_VERSION = "1.2.0"  # bump with manifest.json so browsers reload the card
 
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
@@ -69,7 +70,7 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
     await hass.http.async_register_static_paths(
         [StaticPathConfig(CARD_URL, str(card), False)]
     )
-    add_extra_js_url(hass, CARD_URL)
+    add_extra_js_url(hass, f"{CARD_URL}?v={CARD_VERSION}")
     return True
 
 

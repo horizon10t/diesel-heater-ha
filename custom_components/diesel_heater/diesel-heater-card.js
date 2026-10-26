@@ -1,19 +1,12 @@
 /* Diesel Heater card for Home Assistant (no dependencies)
  *
- * Resource:  /local/diesel-heater-card.js  (type: JavaScript module)
- * Card YAML:
+ * Added from the UI card picker ("Diesel Heater"); the visual editor selects the heater.
+ * YAML:
  *   type: custom:diesel-heater-card
- *   name: Diesel Heater            # optional
- *   # Optional overrides (defaults shown):
- *   status: sensor.diesel_heater_status
- *   core_temp: sensor.diesel_heater_core_temperature
- *   cabin_temp: sensor.diesel_heater_cabin_temperature
- *   voltage: sensor.diesel_heater_voltage
- *   current: sensor.diesel_heater_current
- *   mode: select.diesel_heater_operating_mode
- *   power_level: number.diesel_heater_power_level
- *   target: number.diesel_heater_target_temperature
- *   power: switch.diesel_heater_power
+ *   device: <device id>           # optional, first heater is used if omitted
+ *   name: Diesel Heater           # optional
+ *   # Optional entity overrides: status, core_temp, cabin_temp, voltage, current,
+ *   # mode, power_level, target, power
  */
 const STATE_STYLE = {
   Off:        { color: "var(--secondary-text-color)", icon: "mdi:power-off" },
@@ -25,27 +18,77 @@ const STATE_STYLE = {
   Fault:      { color: "var(--error-color, #d32f2f)", icon: "mdi:alert-octagon" },
 };
 
+// [domain, entity id suffix] used to find each entity on the selected heater.
+const ENTITY_SPEC = {
+  status: ["sensor", "_status"],
+  core_temp: ["sensor", "_core_temperature"],
+  cabin_temp: ["sensor", "_cabin_temperature"],
+  voltage: ["sensor", "_voltage"],
+  current: ["sensor", "_current"],
+  mode: ["select", ""],
+  power_level: ["number", "_power_level"],
+  target: ["number", "_target_temperature"],
+  power: ["switch", ""],
+};
+const DEFAULT_ENTITIES = {
+  status: "sensor.diesel_heater_status",
+  core_temp: "sensor.diesel_heater_core_temperature",
+  cabin_temp: "sensor.diesel_heater_cabin_temperature",
+  voltage: "sensor.diesel_heater_voltage",
+  current: "sensor.diesel_heater_current",
+  mode: "select.diesel_heater_operating_mode",
+  power_level: "number.diesel_heater_power_level",
+  target: "number.diesel_heater_target_temperature",
+  power: "switch.diesel_heater_power",
+};
+
+function firstHeaterDevice(hass) {
+  const e = Object.values(hass.entities || {}).find((x) => x.platform === "diesel_heater" && x.device_id);
+  return e ? e.device_id : undefined;
+}
+
 class DieselHeaterCard extends HTMLElement {
   setConfig(config) {
-    this._config = {
-      name: "Diesel Heater",
-      status: "sensor.diesel_heater_status",
-      core_temp: "sensor.diesel_heater_core_temperature",
-      cabin_temp: "sensor.diesel_heater_cabin_temperature",
-      voltage: "sensor.diesel_heater_voltage",
-      current: "sensor.diesel_heater_current",
-      mode: "select.diesel_heater_operating_mode",
-      power_level: "number.diesel_heater_power_level",
-      target: "number.diesel_heater_target_temperature",
-      power: "switch.diesel_heater_power",
-      ...config,
-    };
+    this._config = { ...config };
+    this._ids = this._entities();
     if (!this.shadowRoot) this._build();
   }
 
   getCardSize() { return 4; }
 
-  static getStubConfig() { return {}; }
+  static getConfigElement() { return document.createElement("diesel-heater-card-editor"); }
+
+  // A new card picks the first heater automatically.
+  static getStubConfig(hass) {
+    const device = hass ? firstHeaterDevice(hass) : undefined;
+    return device ? { device } : {};
+  }
+
+  _deviceName() {
+    const d = this._hass && this._config.device && this._hass.devices
+      ? this._hass.devices[this._config.device] : null;
+    return d ? (d.name_by_user || d.name) : "";
+  }
+
+  // Entity ids: explicit override > entities of the selected heater > default ids.
+  _entities() {
+    const found = {};
+    const hass = this._hass, cfg = this._config || {};
+    const deviceId = cfg.device || (hass ? firstHeaterDevice(hass) : undefined);
+    if (hass && deviceId && hass.entities) {
+      const mine = Object.values(hass.entities).filter(
+        (e) => e.device_id === deviceId && !e.entity_category);
+      for (const [key, [domain, suffix]] of Object.entries(ENTITY_SPEC)) {
+        const match = mine.find((e) => e.entity_id.startsWith(domain + ".") && e.entity_id.endsWith(suffix));
+        if (match) found[key] = match.entity_id;
+      }
+    }
+    const out = {};
+    for (const key of Object.keys(ENTITY_SPEC)) {
+      out[key] = cfg[key] || found[key] || DEFAULT_ENTITIES[key];
+    }
+    return out;
+  }
 
   set hass(hass) {
     this._hass = hass;
@@ -117,7 +160,7 @@ class DieselHeaterCard extends HTMLElement {
     this._root.querySelectorAll(".seg button").forEach((b) =>
       b.addEventListener("click", () =>
         this._hass.callService("select", "select_option", {
-          entity_id: this._config.mode, option: b.dataset.mode })));
+          entity_id: this._ids.mode, option: b.dataset.mode })));
 
     // Sliders update the label while dragging and call the service on release.
     const bindSlider = (id, valId, entity, suffix) => {
@@ -128,12 +171,12 @@ class DieselHeaterCard extends HTMLElement {
         this._hass.callService("number", "set_value", { entity_id: entity(), value: Number(el.value) });
       });
     };
-    bindSlider("#targetSlider", "#targetVal", () => this._config.target, "°C");
-    bindSlider("#levelSlider", "#levelVal", () => this._config.power_level, "");
+    bindSlider("#targetSlider", "#targetVal", () => this._ids.target, "°C");
+    bindSlider("#levelSlider", "#levelVal", () => this._ids.power_level, "");
 
     $("#toggle").addEventListener("click", () => {
       const on = $("#toggle").dataset.on === "1";
-      this._hass.callService("switch", on ? "turn_off" : "turn_on", { entity_id: this._config.power });
+      this._hass.callService("switch", on ? "turn_off" : "turn_on", { entity_id: this._ids.power });
     });
     this._update();
   }
@@ -146,7 +189,9 @@ class DieselHeaterCard extends HTMLElement {
 
   _update() {
     if (!this._hass || !this._config) return;
-    const c = this._config, h = this._hass, $ = (s) => this._root.querySelector(s);
+    const h = this._hass, $ = (s) => this._root.querySelector(s);
+    const c = this._ids = this._entities();
+    c.name = this._config.name || this._deviceName() || "Diesel Heater";
     const st = h.states[c.status];
     const state = st ? st.state : "unavailable";
     const style = STATE_STYLE[state] || { color: "var(--secondary-text-color)", icon: "mdi:help-circle" };
@@ -196,10 +241,78 @@ class DieselHeaterCard extends HTMLElement {
   }
 }
 
+// Visual editor: pick the heater; entity overrides are optional.
+class DieselHeaterCardEditor extends HTMLElement {
+  setConfig(config) {
+    this._config = config;
+    this._render();
+  }
+
+  set hass(hass) {
+    this._hass = hass;
+    if (this._form) this._form.hass = hass;
+    else this._render();
+  }
+
+  _schema() {
+    const entity = (name, domain) => ({ name, selector: { entity: { domain } } });
+    return [
+      { name: "device", selector: { device: { integration: "diesel_heater" } } },
+      { name: "name", selector: { text: {} } },
+      {
+        type: "expandable",
+        name: "",
+        title: "Entity overrides (optional)",
+        schema: [
+          entity("status", "sensor"), entity("core_temp", "sensor"),
+          entity("cabin_temp", "sensor"), entity("voltage", "sensor"),
+          entity("current", "sensor"), entity("mode", "select"),
+          entity("power_level", "number"), entity("target", "number"),
+          entity("power", "switch"),
+        ],
+      },
+    ];
+  }
+
+  _render() {
+    if (!this._config || !this._hass) return;
+    if (!this._form) {
+      this._form = document.createElement("ha-form");
+      this._form.computeLabel = (s) => ({
+        device: "Heater", name: "Name (optional)",
+        status: "Status sensor", core_temp: "Core temperature sensor",
+        cabin_temp: "Cabin temperature sensor", voltage: "Voltage sensor",
+        current: "Current sensor", mode: "Operating mode select",
+        power_level: "Power level number", target: "Target temperature number",
+        power: "Power switch",
+      }[s.name] || s.name);
+      this._form.computeHelper = (s) =>
+        s.name === "device" ? "Entities are found automatically from the selected heater." : "";
+      this._form.addEventListener("value-changed", (ev) => {
+        const value = {};
+        for (const [k, v] of Object.entries(ev.detail.value)) {
+          if (v !== "" && v !== undefined && v !== null) value[k] = v;
+        }
+        this._config = { type: this._config.type, ...value };
+        this.dispatchEvent(new CustomEvent("config-changed", {
+          detail: { config: this._config }, bubbles: true, composed: true,
+        }));
+      });
+      this.appendChild(this._form);
+    }
+    this._form.hass = this._hass;
+    this._form.schema = this._schema();
+    this._form.data = this._config;
+  }
+}
+
 customElements.define("diesel-heater-card", DieselHeaterCard);
+customElements.define("diesel-heater-card-editor", DieselHeaterCardEditor);
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: "diesel-heater-card",
   name: "Diesel Heater",
+  preview: true,
   description: "Status, core temperature, volts/amps and mode control for the ESP32 diesel heater controller.",
+  documentationURL: "https://github.com/horizon10t/diesel-heater-ha",
 });

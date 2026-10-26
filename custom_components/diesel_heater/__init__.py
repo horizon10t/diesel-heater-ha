@@ -61,16 +61,55 @@ class HeaterEntity(CoordinatorEntity[HeaterCoordinator]):
 
 
 CARD_URL = "/diesel_heater/diesel-heater-card.js"
-CARD_VERSION = "1.2.0"  # bump with manifest.json so browsers reload the card
+CARD_VERSION = "1.2.1"  # bump with manifest.json so browsers reload the card
+
+
+async def _register_card_resource(hass: HomeAssistant, url: str) -> bool:
+    """Add (or update) the card as a dashboard resource, like doing it by hand.
+
+    Only possible when dashboards are in storage mode; returns False otherwise.
+    """
+    try:
+        from homeassistant.components.lovelace.const import LOVELACE_DATA
+
+        resources = hass.data[LOVELACE_DATA].resources
+    except (ImportError, KeyError, AttributeError):
+        lovelace = hass.data.get("lovelace")
+        resources = getattr(lovelace, "resources", None)
+    if resources is None or not hasattr(resources, "async_create_item"):
+        return False  # YAML mode or lovelace not available
+
+    if not getattr(resources, "loaded", True):
+        await resources.async_load()
+        resources.loaded = True
+
+    for item in resources.async_items():
+        if item["url"].split("?")[0] == CARD_URL:
+            if item["url"] != url:
+                await resources.async_update_item(
+                    item["id"], {"res_type": "module", "url": url}
+                )
+            return True
+    await resources.async_create_item({"res_type": "module", "url": url})
+    return True
 
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
-    """Serve the Lovelace card and load it on every dashboard."""
+    """Serve the Lovelace card and make every dashboard load it."""
     card = Path(__file__).parent / "diesel-heater-card.js"
     await hass.http.async_register_static_paths(
         [StaticPathConfig(CARD_URL, str(card), False)]
     )
-    add_extra_js_url(hass, f"{CARD_URL}?v={CARD_VERSION}")
+    url = f"{CARD_URL}?v={CARD_VERSION}"
+    try:
+        registered = await _register_card_resource(hass, url)
+    except Exception:  # noqa: BLE001 - never let the card break the integration
+        _LOGGER.exception("Could not register the Lovelace card resource")
+        registered = False
+    # Fallback for YAML-mode dashboards or if the resource could not be added.
+    # The card guards against being loaded twice.
+    if not registered:
+        add_extra_js_url(hass, url)
     return True
 
 

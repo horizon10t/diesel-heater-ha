@@ -306,13 +306,15 @@ class DieselHeaterCardEditor extends HTMLElement {
   }
 }
 
-customElements.define("diesel-heater-card", DieselHeaterCard);
-customElements.define("diesel-heater-card-editor", DieselHeaterCardEditor);
-window.customCards = window.customCards || [];
-window.customCards.push({
-  type: "diesel-heater-card",
-  name: "Diesel Heater",
-  preview: true,
-  description: "Status, core temperature, volts/amps and mode control for the ESP32 diesel heater controller.",
-  documentationURL: "https://github.com/horizon10t/diesel-heater-ha",
-});
+if (!customElements.get("diesel-heater-card")) {
+  customElements.define("diesel-heater-card", DieselHeaterCard);
+  customElements.define("diesel-heater-card-editor", DieselHeaterCardEditor);
+  window.customCards = window.customCards || [];
+  window.customCards.push({
+    type: "diesel-heater-card",
+    name: "Diesel Heater",
+    preview: true,
+    description: "Status, core temperature, volts/amps and mode control for the ESP32 diesel heater controller.",
+    documentationURL: "https://github.com/horizon10t/diesel-heater-ha",
+  });
+}

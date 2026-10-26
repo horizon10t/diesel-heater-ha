@@ -3,11 +3,12 @@
   "name": "Diesel Heater Controller",
   "codeowners": ["@horizon10t"],
   "config_flow": true,
+  "after_dependencies": ["lovelace"],
   "dependencies": ["http", "frontend"],
   "documentation": "https://github.com/horizon10t/diesel-heater-ha",
   "integration_type": "device",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/horizon10t/diesel-heater-ha/issues",
   "requirements": [],
-  "version": "1.2.0"
+  "version": "1.2.1"
 }

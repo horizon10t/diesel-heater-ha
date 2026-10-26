@@ -1,6 +1,12 @@
 # Diesel Heater Controller for Home Assistant
 
-A custom integration with a UI setup flow, plus a bundled Lovelace card, for the ESP32-S3 diesel heater controller.
+A custom integration with a UI setup flow for the [ESP32-S3 Diesel Heater Controller](https://deanfourie.me/product/diesel-heater-controller/). The dashboard card is a separate repo: **[diesel-heater-lovelace](https://github.com/horizon10t/diesel-heater-lovelace)**.
+
+## Screenshot
+
+<!-- Replace images/screenshot.png in the repo with your screenshot. -->
+
+![Diesel Heater Controller](https://raw.githubusercontent.com/horizon10t/diesel-heater-ha/main/images/screenshot.png)
 
 ## Install with HACS (recommended)
 
@@ -30,6 +36,7 @@ Copy `custom_components/diesel_heater` into `/config/custom_components/`, restar
 | `number.diesel_heater_power_level` | 1-10 |
 | `number.diesel_heater_target_temperature` | 5-35 °C |
 | `switch.diesel_heater_power` | start / stop |
+| `button.diesel_heater_emergency_stop` | emergency stop (immediate shutdown, then cooldown) |
 
 **Measurements**
 
@@ -62,16 +69,11 @@ Copy `custom_components/diesel_heater` into `/config/custom_components/`, restar
 | `binary_sensor.diesel_heater_wi_fi_connected` | |
 | `sensor.diesel_heater_installed_version` | firmware version (also shown on the device page) |
 
-## Lovelace card
+## Dashboard card
 
-The integration serves and loads the card automatically; no resource needed. Add it to a dashboard (clear your browser cache once if it doesn't show):
+The card is installed separately through HACS from [horizon10t/diesel-heater-lovelace](https://github.com/horizon10t/diesel-heater-lovelace) (category **Dashboard**). It finds all the entities above automatically from the heater you pick.
 
-```yaml
-type: custom:diesel-heater-card
-name: Diesel Heater
-```
-
-Entity ids can be overridden with `status`, `core_temp`, `cabin_temp`, `voltage`, `current`, `mode`, `power_level`, `target` and `power` if yours differ.
+> **Upgrading from 1.2.x:** the integration no longer serves the card. If you added `/diesel_heater/diesel-heater-card.js` as a dashboard resource (or an earlier version added it for you), delete that entry under **Settings > Dashboards > Resources**, then install the card repo.
 
 ## Controller API (used by the integration)
 
@@ -80,8 +82,13 @@ Entity ids can be overridden with `status`, `core_temp`, `cabin_temp`, `voltage`
 | `/api/ha/status` | GET | Status JSON |
 | `/api/ha/mode` | POST | `mode=thermostat\|power`, `level=1..10`, `target=<whole °C>` |
 | `/api/ha/power` | POST | `on=true\|false` |
+| `/api/ha/estop` | POST | Emergency stop |
 | `/api/ha/key` | GET/POST | Read / regenerate the key (WebUI session with Settings permission) |
 
 Send the key in the `X-API-Key` header. Anyone on your network with the key can start and stop the heater, so regenerate it if it leaks.
 
-The new network, schedule and version entities need controller firmware that reports them; flash the latest firmware first.
+The network, schedule, version and emergency-stop entities need controller firmware that supports them; flash the latest firmware first.
+
+## The controller
+
+This works with the [Diesel Heater Controller](https://deanfourie.me/product/diesel-heater-controller/) from [deanfourie.me](https://deanfourie.me). See the product page for details, hardware and firmware.

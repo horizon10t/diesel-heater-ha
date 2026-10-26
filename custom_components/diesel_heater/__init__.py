@@ -53,8 +53,9 @@ class HeaterEntity(CoordinatorEntity[HeaterCoordinator]):
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.host)},
             name="Diesel Heater",
-            manufacturer="DIY",
+            manufacturer="deanfourie.me",
             model="ESP32-S3 Heater Controller",
+            sw_version=coordinator.data.get("firmwareVersion") if coordinator.data else None,
             configuration_url=f"http://{coordinator.host}",
         )
 

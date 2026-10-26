@@ -1,0 +1,13 @@
+{
+  "domain": "diesel_heater",
+  "name": "Diesel Heater Controller",
+  "codeowners": ["@YOUR_GITHUB_USER"],
+  "config_flow": true,
+  "dependencies": ["http", "frontend"],
+  "documentation": "https://github.com/YOUR_GITHUB_USER/ha-diesel-heater",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/YOUR_GITHUB_USER/ha-diesel-heater/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}

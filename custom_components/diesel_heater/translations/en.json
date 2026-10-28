@@ -15,7 +15,9 @@
     "error": {
       "cannot_connect": "Could not reach the controller",
       "invalid_auth": "Incorrect username or password, or the user lacks the Settings permission",
-      "invalid_code": "Incorrect authentication code"
+      "invalid_code": "Incorrect authentication code",
+      "unexpected_response": "That address answered, but not like a heater controller. Check the IP address and that the controller is running the latest firmware.",
+      "unknown": "Unexpected error. Check the Home Assistant log for details."
     },
     "abort": { "already_configured": "This heater is already configured" }
   }

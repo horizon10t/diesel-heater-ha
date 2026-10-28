@@ -3,4 +3,4 @@
 DOMAIN = "diesel_heater"
 CONF_API_KEY = "api_key"
 SCAN_INTERVAL_SECONDS = 5
-PLATFORMS = ["sensor", "binary_sensor", "select", "number", "switch"]
+PLATFORMS = ["sensor", "binary_sensor", "select", "number", "switch", "button"]

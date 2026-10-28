@@ -1,6 +1,7 @@
 """Config flow: host + WebUI login (and MFA code if enabled)."""
 from __future__ import annotations
 
+import logging
 from typing import Any
 
 import voluptuous as vol
@@ -8,8 +9,16 @@ import voluptuous as vol
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
 
-from .api import HeaterAuthError, HeaterError, MfaRequired, fetch_api_key
+from .api import (
+    HeaterAuthError,
+    HeaterError,
+    MfaRequired,
+    UnexpectedResponse,
+    fetch_api_key,
+)
 from .const import CONF_API_KEY, DOMAIN
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class DieselHeaterConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -36,13 +45,21 @@ class DieselHeaterConfigFlow(ConfigFlow, domain=DOMAIN):
             self._password = user_input[CONF_PASSWORD]
             try:
                 key = await fetch_api_key(self._host, self._username, self._password)
-                return await self._finish(key)
             except MfaRequired:
                 return await self.async_step_mfa()
             except HeaterAuthError:
                 errors["base"] = "invalid_auth"
-            except HeaterError:
+            except UnexpectedResponse as err:
+                _LOGGER.warning("Diesel heater setup: %s", err)
+                errors["base"] = "unexpected_response"
+            except HeaterError as err:
+                _LOGGER.warning("Diesel heater setup could not connect: %s", err)
                 errors["base"] = "cannot_connect"
+            except Exception:  # noqa: BLE001 - show a form error, never crash the flow
+                _LOGGER.exception("Unexpected error during Diesel heater setup")
+                errors["base"] = "unknown"
+            else:
+                return await self._finish(key)
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(
@@ -62,11 +79,19 @@ class DieselHeaterConfigFlow(ConfigFlow, domain=DOMAIN):
                 key = await fetch_api_key(
                     self._host, self._username, self._password, user_input["code"].strip()
                 )
-                return await self._finish(key)
             except (MfaRequired, HeaterAuthError):
                 errors["base"] = "invalid_code"
-            except HeaterError:
+            except UnexpectedResponse as err:
+                _LOGGER.warning("Diesel heater setup: %s", err)
+                errors["base"] = "unexpected_response"
+            except HeaterError as err:
+                _LOGGER.warning("Diesel heater setup could not connect: %s", err)
                 errors["base"] = "cannot_connect"
+            except Exception:  # noqa: BLE001
+                _LOGGER.exception("Unexpected error during Diesel heater setup")
+                errors["base"] = "unknown"
+            else:
+                return await self._finish(key)
         return self.async_show_form(
             step_id="mfa",
             data_schema=vol.Schema({vol.Required("code"): str}),

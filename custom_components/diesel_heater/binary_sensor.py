@@ -39,7 +39,9 @@ BINARY_SENSORS: tuple[HeaterBinaryDescription, ...] = (
     ),
     HeaterBinaryDescription(
         key="fault", name="Fault", device_class=BinarySensorDeviceClass.PROBLEM,
-        value_fn=lambda d: d.get("state") == "Fault",
+        # On for a fault and also after an emergency stop, which leaves the
+        # heater cooling down with an error message.
+        value_fn=lambda d: d.get("state") == "Fault" or bool(d.get("fault")),
     ),
     HeaterBinaryDescription(
         key="sta_connected", name="Wi-Fi connected",

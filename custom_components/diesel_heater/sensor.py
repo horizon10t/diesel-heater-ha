@@ -46,6 +46,12 @@ def _text(field: str) -> Callable[[dict], Any]:
     return lambda data: data.get(field) or None
 
 
+def _fault_text(data: dict) -> str:
+    """The heater's current error, or "None". A sensor state holds 255 characters
+    at most; the full text is also kept in the `message` attribute."""
+    return (data.get("fault") or "None")[:255]
+
+
 @dataclass(frozen=True, kw_only=True)
 class HeaterSensorDescription(SensorEntityDescription):
     value_fn: Callable[[dict], Any]
@@ -147,6 +153,15 @@ SENSORS: tuple[HeaterSensorDescription, ...] = (
     HeaterSensorDescription(
         key="firmware_version", name="Installed version", icon="mdi:chip",
         entity_category=DIAG, value_fn=_text("firmwareVersion"),
+    ),
+    # The full text of the current error ("None" when there isn't one).
+    HeaterSensorDescription(
+        key="fault_message", name="Fault message", icon="mdi:alert-circle-outline",
+        value_fn=_fault_text,
+        attrs_fn=lambda d: {
+            "message": d.get("fault") or None,
+            "heater_state": d.get("state"),
+        },
     ),
 )
 

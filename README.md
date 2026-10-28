@@ -31,7 +31,8 @@ Copy `custom_components/diesel_heater` into `/config/custom_components/`, restar
 
 | Entity | Notes |
 |---|---|
-| `sensor.diesel_heater_status` | Off / Preheating / Igniting / Running / Cooling / Priming / Fault (fault text in attributes) |
+| `sensor.diesel_heater_status` | Off / Preheating / Igniting / Running / Cooling / Priming / Fault |
+| `sensor.diesel_heater_fault_message` | The current error in full, or `None`. The full text is also in the `message` attribute |
 | `select.diesel_heater_operating_mode` | Thermostat / Power |
 | `number.diesel_heater_power_level` | 1-10 |
 | `number.diesel_heater_target_temperature` | 5-35 °C |
@@ -47,7 +48,7 @@ Copy `custom_components/diesel_heater` into `/config/custom_components/`, restar
 | `sensor.diesel_heater_glow_plug_output`, `..._fan_output` | % |
 | `sensor.diesel_heater_fuel_pump_rate` | Hz |
 | `binary_sensor.diesel_heater_glow_plug`, `..._fan`, `..._fuel_pump` | on / off output states |
-| `binary_sensor.diesel_heater_fault` | problem when in Fault (message in attributes) |
+| `binary_sensor.diesel_heater_fault` | problem during a fault or after an emergency stop (message in attributes) |
 | `binary_sensor.diesel_heater_schedule_active` | on while inside an enabled schedule window |
 
 **Runtime**

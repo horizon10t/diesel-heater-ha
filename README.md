@@ -36,6 +36,8 @@ Copy `custom_components/diesel_heater` into `/config/custom_components/`, restar
 | `select.diesel_heater_operating_mode` | Thermostat / Power |
 | `number.diesel_heater_power_level` | 1-10 |
 | `number.diesel_heater_target_temperature` | 5-35 °C |
+| `number.diesel_heater_fan_speed` | Fan speed for the current power level (Power mode only, not saved) |
+| `number.diesel_heater_fuel_pump_rate` | Fuel pump rate in Hz for the current power level (Power mode only, not saved) |
 | `switch.diesel_heater_power` | start / stop |
 | `button.diesel_heater_emergency_stop` | emergency stop (immediate shutdown, then cooldown) |
 | `button.diesel_heater_clear_fault` | clear a fault, same as Clear in the web interface (waits for the fault cooldown) |
@@ -83,6 +85,7 @@ The card is installed separately through HACS from [horizon10t/diesel-heater-lov
 |---|---|---|
 | `/api/ha/status` | GET | Status JSON |
 | `/api/ha/mode` | POST | `mode=thermostat\|power`, `level=1..10`, `target=<whole °C>` |
+| `/api/ha/tune` | POST | `fan=<%>` and/or `pumpHz=<Hz>` (Power mode only, not saved) |
 | `/api/ha/power` | POST | `on=true\|false` |
 | `/api/ha/estop` | POST | Emergency stop |
 | `/api/ha/fault/clear` | POST | Clear a fault (same as the web interface Clear button) |
@@ -91,6 +94,8 @@ The card is installed separately through HACS from [horizon10t/diesel-heater-lov
 Send the key in the `X-API-Key` header. Anyone on your network with the key can start and stop the heater, so regenerate it if it leaks.
 
 The network, schedule, version and emergency-stop entities need controller firmware that supports them; flash the latest firmware first.
+
+**Languages:** the config flow and all entity names are translated into German, French, Spanish, Italian, Portuguese, Dutch, Polish, Russian, Swedish, Czech, Turkish, Japanese and Chinese (Simplified), following your Home Assistant language. Entities that already exist keep their entity ids; new installs in another language get ids in that language, which the Lovelace card handles automatically.
 
 ## The controller
 

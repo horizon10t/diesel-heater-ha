@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "Zaloguj się kontem WebUI z uprawnieniem Ustawienia. Hasło jest użyte tylko raz do pobrania klucza API i nie jest zapisywane.",
+        "data": { "host": "Host / adres IP", "username": "Nazwa użytkownika", "password": "Hasło" }
+      },
+      "mfa": {
+        "title": "Kod uwierzytelniania",
+        "description": "To konto używa MFA. Wpisz 6-cyfrowy kod (lub kod odzyskiwania).",
+        "data": { "code": "Kod" }
+      }
+    },
+    "error": {
+      "cannot_connect": "Nie można połączyć się z kontrolerem",
+      "invalid_auth": "Nieprawidłowa nazwa użytkownika lub hasło albo brak uprawnienia Ustawienia",
+      "invalid_code": "Nieprawidłowy kod uwierzytelniania",
+      "unexpected_response": "Ten adres odpowiedział, ale nie jak kontroler nagrzewnicy. Sprawdź adres IP oraz czy kontroler ma najnowsze oprogramowanie.",
+      "unknown": "Nieoczekiwany błąd. Szczegóły znajdziesz w dzienniku Home Assistant."
+    },
+    "abort": { "already_configured": "Ta nagrzewnica jest już skonfigurowana" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "Stan" },
+      "core_temperature": { "name": "Temperatura rdzenia" },
+      "cabin_temperature": { "name": "Temperatura kabiny" },
+      "voltage": { "name": "Napięcie" },
+      "current": { "name": "Prąd" },
+      "glow_output": { "name": "Wyjście świecy żarowej" },
+      "fan_output": { "name": "Wyjście wentylatora" },
+      "pump_rate": { "name": "Częstotliwość pompy paliwa" },
+      "last_run": { "name": "Czas ostatniej pracy" },
+      "average_runtime": { "name": "Średni czas pracy" },
+      "total_runtime": { "name": "Całkowity czas pracy" },
+      "ip_address": { "name": "Adres IP" },
+      "wifi_network": { "name": "Aktywna sieć Wi-Fi" },
+      "sta_status": { "name": "Stan stacji" },
+      "ap_status": { "name": "Stan punktu dostępu" },
+      "firmware_version": { "name": "Zainstalowana wersja" },
+      "fault_message": { "name": "Komunikat o usterce" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "Świeca żarowa" },
+      "fan_on": { "name": "Wentylator" },
+      "pump_on": { "name": "Pompa paliwa" },
+      "schedule_active": { "name": "Harmonogram aktywny" },
+      "fault": { "name": "Usterka" },
+      "sta_connected": { "name": "Połączono z Wi-Fi" }
+    },
+    "button": {
+      "emergency_stop": { "name": "Zatrzymanie awaryjne" },
+      "clear_fault": { "name": "Wyczyść usterkę" }
+    },
+    "number": {
+      "power_level": { "name": "Poziom mocy" },
+      "target_temperature": { "name": "Temperatura docelowa" },
+      "fan_speed": { "name": "Prędkość wentylatora" },
+      "fuel_pump_rate": { "name": "Częstotliwość pompy paliwa" }
+    },
+    "select": {
+      "operating_mode": { "name": "Tryb pracy" }
+    },
+    "switch": {
+      "power": { "name": "Moc" }
+    }
+  }
+}

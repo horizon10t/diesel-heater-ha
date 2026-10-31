@@ -20,5 +20,50 @@
       "unknown": "Unexpected error. Check the Home Assistant log for details."
     },
     "abort": { "already_configured": "This heater is already configured" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "Status" },
+      "core_temperature": { "name": "Core temperature" },
+      "cabin_temperature": { "name": "Cabin temperature" },
+      "voltage": { "name": "Voltage" },
+      "current": { "name": "Current" },
+      "glow_output": { "name": "Glow plug output" },
+      "fan_output": { "name": "Fan output" },
+      "pump_rate": { "name": "Fuel pump rate" },
+      "last_run": { "name": "Last run duration" },
+      "average_runtime": { "name": "Average runtime" },
+      "total_runtime": { "name": "Total runtime" },
+      "ip_address": { "name": "IP address" },
+      "wifi_network": { "name": "Active Wi-Fi network" },
+      "sta_status": { "name": "Station status" },
+      "ap_status": { "name": "Access point status" },
+      "firmware_version": { "name": "Installed version" },
+      "fault_message": { "name": "Fault message" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "Glow plug" },
+      "fan_on": { "name": "Fan" },
+      "pump_on": { "name": "Fuel pump" },
+      "schedule_active": { "name": "Schedule active" },
+      "fault": { "name": "Fault" },
+      "sta_connected": { "name": "Wi-Fi connected" }
+    },
+    "button": {
+      "emergency_stop": { "name": "Emergency stop" },
+      "clear_fault": { "name": "Clear fault" }
+    },
+    "number": {
+      "power_level": { "name": "Power level" },
+      "target_temperature": { "name": "Target temperature" },
+      "fan_speed": { "name": "Fan speed" },
+      "fuel_pump_rate": { "name": "Fuel pump rate" }
+    },
+    "select": {
+      "operating_mode": { "name": "Operating mode" }
+    },
+    "switch": {
+      "power": { "name": "Power" }
+    }
   }
 }

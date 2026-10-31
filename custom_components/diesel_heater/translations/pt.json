@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "Inicie sessão com uma conta WebUI que tenha a permissão Definições. A palavra-passe é usada apenas uma vez para obter uma chave API e não é guardada.",
+        "data": { "host": "Anfitrião / endereço IP", "username": "Utilizador", "password": "Palavra-passe" }
+      },
+      "mfa": {
+        "title": "Código de autenticação",
+        "description": "Esta conta utiliza MFA. Introduza o código de 6 dígitos (ou um código de recuperação).",
+        "data": { "code": "Código" }
+      }
+    },
+    "error": {
+      "cannot_connect": "Não foi possível contactar o controlador",
+      "invalid_auth": "Nome de utilizador ou palavra-passe incorretos, ou o utilizador não tem a permissão Definições",
+      "invalid_code": "Código de autenticação incorreto",
+      "unexpected_response": "Esse endereço respondeu, mas não como um controlador de aquecedor. Verifique o endereço IP e se o controlador tem o firmware mais recente.",
+      "unknown": "Erro inesperado. Consulte o registo do Home Assistant para mais detalhes."
+    },
+    "abort": { "already_configured": "Este aquecedor já está configurado" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "Estado" },
+      "core_temperature": { "name": "Temperatura do núcleo" },
+      "cabin_temperature": { "name": "Temperatura da cabine" },
+      "voltage": { "name": "Tensão" },
+      "current": { "name": "Corrente" },
+      "glow_output": { "name": "Saída da vela incandescente" },
+      "fan_output": { "name": "Saída da ventoinha" },
+      "pump_rate": { "name": "Taxa da bomba de combustível" },
+      "last_run": { "name": "Duração da última execução" },
+      "average_runtime": { "name": "Tempo de funcionamento médio" },
+      "total_runtime": { "name": "Tempo de funcionamento total" },
+      "ip_address": { "name": "Endereço IP" },
+      "wifi_network": { "name": "Rede Wi-Fi ativa" },
+      "sta_status": { "name": "Estado da estação" },
+      "ap_status": { "name": "Estado do ponto de acesso" },
+      "firmware_version": { "name": "Versão instalada" },
+      "fault_message": { "name": "Mensagem de falha" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "Vela incandescente" },
+      "fan_on": { "name": "Ventoinha" },
+      "pump_on": { "name": "Bomba de combustível" },
+      "schedule_active": { "name": "Agendamento ativo" },
+      "fault": { "name": "Falha" },
+      "sta_connected": { "name": "Wi-Fi ligado" }
+    },
+    "button": {
+      "emergency_stop": { "name": "Paragem de emergência" },
+      "clear_fault": { "name": "Limpar falha" }
+    },
+    "number": {
+      "power_level": { "name": "Nível de potência" },
+      "target_temperature": { "name": "Temperatura alvo" },
+      "fan_speed": { "name": "Velocidade da ventoinha" },
+      "fuel_pump_rate": { "name": "Taxa da bomba de combustível" }
+    },
+    "select": {
+      "operating_mode": { "name": "Modo de funcionamento" }
+    },
+    "switch": {
+      "power": { "name": "Potência" }
+    }
+  }
+}

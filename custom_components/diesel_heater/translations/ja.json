@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "「設定」権限を持つWebUIアカウントでサインインしてください。パスワードはAPIキーの取得に一度だけ使用され、保存されません。",
+        "data": { "host": "ホスト / IPアドレス", "username": "ユーザー名", "password": "パスワード" }
+      },
+      "mfa": {
+        "title": "認証コード",
+        "description": "このアカウントはMFAを使用しています。6桁のコード（またはリカバリーコード）を入力してください。",
+        "data": { "code": "コード" }
+      }
+    },
+    "error": {
+      "cannot_connect": "コントローラーに接続できませんでした",
+      "invalid_auth": "ユーザー名またはパスワードが正しくないか、ユーザーに「設定」権限がありません",
+      "invalid_code": "認証コードが正しくありません",
+      "unexpected_response": "そのアドレスは応答しましたが、ヒーターコントローラーのようではありません。IPアドレスと、コントローラーが最新のファームウェアで動作していることを確認してください。",
+      "unknown": "予期しないエラーです。詳細はHome Assistantのログを確認してください。"
+    },
+    "abort": { "already_configured": "このヒーターは既に設定されています" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "状態" },
+      "core_temperature": { "name": "コア温度" },
+      "cabin_temperature": { "name": "室温" },
+      "voltage": { "name": "電圧" },
+      "current": { "name": "電流" },
+      "glow_output": { "name": "グロープラグ出力" },
+      "fan_output": { "name": "ファン出力" },
+      "pump_rate": { "name": "燃料ポンプ周波数" },
+      "last_run": { "name": "前回の運転時間" },
+      "average_runtime": { "name": "平均運転時間" },
+      "total_runtime": { "name": "総運転時間" },
+      "ip_address": { "name": "IPアドレス" },
+      "wifi_network": { "name": "接続中のWi-Fiネットワーク" },
+      "sta_status": { "name": "ステーションの状態" },
+      "ap_status": { "name": "アクセスポイントの状態" },
+      "firmware_version": { "name": "インストール済みバージョン" },
+      "fault_message": { "name": "故障メッセージ" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "グロープラグ" },
+      "fan_on": { "name": "ファン" },
+      "pump_on": { "name": "燃料ポンプ" },
+      "schedule_active": { "name": "スケジュール有効" },
+      "fault": { "name": "故障" },
+      "sta_connected": { "name": "Wi-Fi接続" }
+    },
+    "button": {
+      "emergency_stop": { "name": "緊急停止" },
+      "clear_fault": { "name": "故障を解除" }
+    },
+    "number": {
+      "power_level": { "name": "パワーレベル" },
+      "target_temperature": { "name": "目標温度" },
+      "fan_speed": { "name": "ファン速度" },
+      "fuel_pump_rate": { "name": "燃料ポンプ流量" }
+    },
+    "select": {
+      "operating_mode": { "name": "運転モード" }
+    },
+    "switch": {
+      "power": { "name": "パワー" }
+    }
+  }
+}

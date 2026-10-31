@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "Войдите с учётной записью WebUI, имеющей разрешение «Настройки». Пароль используется один раз для получения ключа API и не сохраняется.",
+        "data": { "host": "Хост / IP-адрес", "username": "Имя пользователя", "password": "Пароль" }
+      },
+      "mfa": {
+        "title": "Код аутентификации",
+        "description": "Эта учётная запись использует MFA. Введите 6-значный код (или код восстановления).",
+        "data": { "code": "Код" }
+      }
+    },
+    "error": {
+      "cannot_connect": "Не удалось связаться с контроллером",
+      "invalid_auth": "Неверное имя пользователя или пароль либо у пользователя нет разрешения «Настройки»",
+      "invalid_code": "Неверный код аутентификации",
+      "unexpected_response": "Этот адрес ответил, но не как контроллер обогревателя. Проверьте IP-адрес и то, что на контроллере установлена последняя прошивка.",
+      "unknown": "Непредвиденная ошибка. Подробности смотрите в журнале Home Assistant."
+    },
+    "abort": { "already_configured": "Этот обогреватель уже настроен" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "Состояние" },
+      "core_temperature": { "name": "Температура ядра" },
+      "cabin_temperature": { "name": "Температура салона" },
+      "voltage": { "name": "Напряжение" },
+      "current": { "name": "Ток" },
+      "glow_output": { "name": "Выход свечи накаливания" },
+      "fan_output": { "name": "Выход вентилятора" },
+      "pump_rate": { "name": "Частота топливного насоса" },
+      "last_run": { "name": "Длительность последнего запуска" },
+      "average_runtime": { "name": "Среднее время работы" },
+      "total_runtime": { "name": "Общее время работы" },
+      "ip_address": { "name": "IP-адрес" },
+      "wifi_network": { "name": "Активная сеть Wi-Fi" },
+      "sta_status": { "name": "Состояние станции" },
+      "ap_status": { "name": "Состояние точки доступа" },
+      "firmware_version": { "name": "Установленная версия" },
+      "fault_message": { "name": "Сообщение о неисправности" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "Свеча накаливания" },
+      "fan_on": { "name": "Вентилятор" },
+      "pump_on": { "name": "Топливный насос" },
+      "schedule_active": { "name": "Расписание активно" },
+      "fault": { "name": "Неисправность" },
+      "sta_connected": { "name": "Wi-Fi подключён" }
+    },
+    "button": {
+      "emergency_stop": { "name": "Аварийная остановка" },
+      "clear_fault": { "name": "Сбросить неисправность" }
+    },
+    "number": {
+      "power_level": { "name": "Уровень мощности" },
+      "target_temperature": { "name": "Целевая температура" },
+      "fan_speed": { "name": "Скорость вентилятора" },
+      "fuel_pump_rate": { "name": "Частота топливного насоса" }
+    },
+    "select": {
+      "operating_mode": { "name": "Режим работы" }
+    },
+    "switch": {
+      "power": { "name": "Мощность" }
+    }
+  }
+}

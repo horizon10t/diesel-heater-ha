@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "Meld u aan met een WebUI-account met de machtiging Instellingen. Uw wachtwoord wordt slechts één keer gebruikt om een API-sleutel op te halen en wordt niet opgeslagen.",
+        "data": { "host": "Host / IP-adres", "username": "Gebruikersnaam", "password": "Wachtwoord" }
+      },
+      "mfa": {
+        "title": "Verificatiecode",
+        "description": "Dit account gebruikt MFA. Voer de 6-cijferige code (of een herstelcode) in.",
+        "data": { "code": "Code" }
+      }
+    },
+    "error": {
+      "cannot_connect": "Controller niet bereikbaar",
+      "invalid_auth": "Onjuiste gebruikersnaam of wachtwoord, of de gebruiker heeft geen machtiging Instellingen",
+      "invalid_code": "Onjuiste verificatiecode",
+      "unexpected_response": "Dat adres antwoordde, maar niet als een verwarmingscontroller. Controleer het IP-adres en of de controller de nieuwste firmware gebruikt.",
+      "unknown": "Onverwachte fout. Raadpleeg het Home Assistant-logboek voor details."
+    },
+    "abort": { "already_configured": "Deze verwarming is al ingesteld" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "Status" },
+      "core_temperature": { "name": "Kerntemperatuur" },
+      "cabin_temperature": { "name": "Cabinetemperatuur" },
+      "voltage": { "name": "Spanning" },
+      "current": { "name": "Stroom" },
+      "glow_output": { "name": "Gloeibougie-uitgang" },
+      "fan_output": { "name": "Ventilatoruitgang" },
+      "pump_rate": { "name": "Brandstofpompfrequentie" },
+      "last_run": { "name": "Duur laatste run" },
+      "average_runtime": { "name": "Gemiddelde looptijd" },
+      "total_runtime": { "name": "Totale looptijd" },
+      "ip_address": { "name": "IP-adres" },
+      "wifi_network": { "name": "Actief wifi-netwerk" },
+      "sta_status": { "name": "Stationstatus" },
+      "ap_status": { "name": "Status toegangspunt" },
+      "firmware_version": { "name": "Geïnstalleerde versie" },
+      "fault_message": { "name": "Storingsmelding" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "Gloeibougie" },
+      "fan_on": { "name": "Ventilator" },
+      "pump_on": { "name": "Brandstofpomp" },
+      "schedule_active": { "name": "Schema actief" },
+      "fault": { "name": "Storing" },
+      "sta_connected": { "name": "Wifi verbonden" }
+    },
+    "button": {
+      "emergency_stop": { "name": "Noodstop" },
+      "clear_fault": { "name": "Storing wissen" }
+    },
+    "number": {
+      "power_level": { "name": "Vermogensniveau" },
+      "target_temperature": { "name": "Doeltemperatuur" },
+      "fan_speed": { "name": "Ventilatorsnelheid" },
+      "fuel_pump_rate": { "name": "Pompsnelheid brandstof" }
+    },
+    "select": {
+      "operating_mode": { "name": "Bedrijfsmodus" }
+    },
+    "switch": {
+      "power": { "name": "Vermogen" }
+    }
+  }
+}

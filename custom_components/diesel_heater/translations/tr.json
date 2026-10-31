@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "Ayarlar iznine sahip bir WebUI hesabıyla oturum açın. Parolanız yalnızca bir API anahtarı almak için bir kez kullanılır ve saklanmaz.",
+        "data": { "host": "Ana makine / IP adresi", "username": "Kullanıcı adı", "password": "Parola" }
+      },
+      "mfa": {
+        "title": "Doğrulama kodu",
+        "description": "Bu hesap MFA kullanıyor. 6 haneli kodu (veya bir kurtarma kodunu) girin.",
+        "data": { "code": "Kod" }
+      }
+    },
+    "error": {
+      "cannot_connect": "Denetleyiciye ulaşılamadı",
+      "invalid_auth": "Kullanıcı adı veya parola hatalı ya da kullanıcının Ayarlar izni yok",
+      "invalid_code": "Doğrulama kodu hatalı",
+      "unexpected_response": "Bu adres yanıt verdi ancak bir ısıtıcı denetleyicisi gibi değil. IP adresini ve denetleyicinin en son yazılımı çalıştırdığını kontrol edin.",
+      "unknown": "Beklenmeyen hata. Ayrıntılar için Home Assistant günlüğüne bakın."
+    },
+    "abort": { "already_configured": "Bu ısıtıcı zaten yapılandırılmış" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "Durum" },
+      "core_temperature": { "name": "Çekirdek sıcaklığı" },
+      "cabin_temperature": { "name": "Kabin sıcaklığı" },
+      "voltage": { "name": "Gerilim" },
+      "current": { "name": "Akım" },
+      "glow_output": { "name": "Kızdırma bujisi çıkışı" },
+      "fan_output": { "name": "Fan çıkışı" },
+      "pump_rate": { "name": "Yakıt pompası hızı" },
+      "last_run": { "name": "Son çalışma süresi" },
+      "average_runtime": { "name": "Ortalama çalışma süresi" },
+      "total_runtime": { "name": "Toplam çalışma süresi" },
+      "ip_address": { "name": "IP adresi" },
+      "wifi_network": { "name": "Etkin Wi-Fi ağı" },
+      "sta_status": { "name": "İstasyon durumu" },
+      "ap_status": { "name": "Erişim noktası durumu" },
+      "firmware_version": { "name": "Yüklü sürüm" },
+      "fault_message": { "name": "Arıza mesajı" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "Kızdırma bujisi" },
+      "fan_on": { "name": "Fan" },
+      "pump_on": { "name": "Yakıt pompası" },
+      "schedule_active": { "name": "Zamanlama etkin" },
+      "fault": { "name": "Arıza" },
+      "sta_connected": { "name": "Wi-Fi bağlı" }
+    },
+    "button": {
+      "emergency_stop": { "name": "Acil durdurma" },
+      "clear_fault": { "name": "Arızayı temizle" }
+    },
+    "number": {
+      "power_level": { "name": "Güç seviyesi" },
+      "target_temperature": { "name": "Hedef sıcaklık" },
+      "fan_speed": { "name": "Fan hızı" },
+      "fuel_pump_rate": { "name": "Yakıt pompası hızı" }
+    },
+    "select": {
+      "operating_mode": { "name": "Çalışma modu" }
+    },
+    "switch": {
+      "power": { "name": "Güç" }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "Accedi con un account WebUI che abbia il permesso Impostazioni. La password viene usata una sola volta per ottenere una chiave API e non viene memorizzata.",
+        "data": { "host": "Host / indirizzo IP", "username": "Nome utente", "password": "Password" }
+      },
+      "mfa": {
+        "title": "Codice di autenticazione",
+        "description": "Questo account usa l'MFA. Inserisci il codice a 6 cifre (o un codice di recupero).",
+        "data": { "code": "Codice" }
+      }
+    },
+    "error": {
+      "cannot_connect": "Impossibile raggiungere il controller",
+      "invalid_auth": "Nome utente o password errati, oppure l'utente non ha il permesso Impostazioni",
+      "invalid_code": "Codice di autenticazione errato",
+      "unexpected_response": "Quell'indirizzo ha risposto, ma non come un controller del riscaldatore. Controlla l'indirizzo IP e che il controller esegua il firmware più recente.",
+      "unknown": "Errore imprevisto. Controlla il log di Home Assistant per i dettagli."
+    },
+    "abort": { "already_configured": "Questo riscaldatore è già configurato" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "Stato" },
+      "core_temperature": { "name": "Temperatura del nucleo" },
+      "cabin_temperature": { "name": "Temperatura della cabina" },
+      "voltage": { "name": "Tensione" },
+      "current": { "name": "Corrente" },
+      "glow_output": { "name": "Uscita candeletta" },
+      "fan_output": { "name": "Uscita ventola" },
+      "pump_rate": { "name": "Frequenza pompa carburante" },
+      "last_run": { "name": "Durata ultimo avvio" },
+      "average_runtime": { "name": "Tempo di funzionamento medio" },
+      "total_runtime": { "name": "Tempo di funzionamento totale" },
+      "ip_address": { "name": "Indirizzo IP" },
+      "wifi_network": { "name": "Rete Wi-Fi attiva" },
+      "sta_status": { "name": "Stato stazione" },
+      "ap_status": { "name": "Stato access point" },
+      "firmware_version": { "name": "Versione installata" },
+      "fault_message": { "name": "Messaggio di guasto" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "Candeletta" },
+      "fan_on": { "name": "Ventola" },
+      "pump_on": { "name": "Pompa carburante" },
+      "schedule_active": { "name": "Programma attivo" },
+      "fault": { "name": "Guasto" },
+      "sta_connected": { "name": "Wi-Fi connesso" }
+    },
+    "button": {
+      "emergency_stop": { "name": "Arresto di emergenza" },
+      "clear_fault": { "name": "Cancella guasto" }
+    },
+    "number": {
+      "power_level": { "name": "Livello di potenza" },
+      "target_temperature": { "name": "Temperatura obiettivo" },
+      "fan_speed": { "name": "Velocità ventola" },
+      "fuel_pump_rate": { "name": "Frequenza pompa carburante" }
+    },
+    "select": {
+      "operating_mode": { "name": "Modalità di funzionamento" }
+    },
+    "switch": {
+      "power": { "name": "Potenza" }
+    }
+  }
+}

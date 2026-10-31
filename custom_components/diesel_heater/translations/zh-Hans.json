@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "请使用具有“设置”权限的 WebUI 账户登录。密码仅用于一次性获取 API 密钥，不会被保存。",
+        "data": { "host": "主机 / IP 地址", "username": "用户名", "password": "密码" }
+      },
+      "mfa": {
+        "title": "验证码",
+        "description": "此账户使用多重身份验证。请输入 6 位验证码（或恢复码）。",
+        "data": { "code": "代码" }
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接到控制器",
+      "invalid_auth": "用户名或密码错误，或该用户没有“设置”权限",
+      "invalid_code": "验证码错误",
+      "unexpected_response": "该地址有响应，但不像加热器控制器。请检查 IP 地址以及控制器是否运行最新固件。",
+      "unknown": "发生意外错误。请查看 Home Assistant 日志了解详情。"
+    },
+    "abort": { "already_configured": "此加热器已配置" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "状态" },
+      "core_temperature": { "name": "核心温度" },
+      "cabin_temperature": { "name": "舱内温度" },
+      "voltage": { "name": "电压" },
+      "current": { "name": "电流" },
+      "glow_output": { "name": "电热塞输出" },
+      "fan_output": { "name": "风扇输出" },
+      "pump_rate": { "name": "燃油泵频率" },
+      "last_run": { "name": "上次运行时长" },
+      "average_runtime": { "name": "平均运行时间" },
+      "total_runtime": { "name": "总运行时间" },
+      "ip_address": { "name": "IP 地址" },
+      "wifi_network": { "name": "当前 Wi-Fi 网络" },
+      "sta_status": { "name": "站点状态" },
+      "ap_status": { "name": "接入点状态" },
+      "firmware_version": { "name": "已安装版本" },
+      "fault_message": { "name": "故障信息" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "电热塞" },
+      "fan_on": { "name": "风扇" },
+      "pump_on": { "name": "燃油泵" },
+      "schedule_active": { "name": "计划已启用" },
+      "fault": { "name": "故障" },
+      "sta_connected": { "name": "Wi-Fi 已连接" }
+    },
+    "button": {
+      "emergency_stop": { "name": "紧急停止" },
+      "clear_fault": { "name": "清除故障" }
+    },
+    "number": {
+      "power_level": { "name": "功率等级" },
+      "target_temperature": { "name": "目标温度" },
+      "fan_speed": { "name": "风扇转速" },
+      "fuel_pump_rate": { "name": "燃油泵速率" }
+    },
+    "select": {
+      "operating_mode": { "name": "运行模式" }
+    },
+    "switch": {
+      "power": { "name": "功率" }
+    }
+  }
+}

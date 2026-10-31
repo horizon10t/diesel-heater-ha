@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "Přihlaste se účtem WebUI s oprávněním Nastavení. Heslo se použije jen jednou k získání klíče API a neukládá se.",
+        "data": { "host": "Hostitel / IP adresa", "username": "Uživatelské jméno", "password": "Heslo" }
+      },
+      "mfa": {
+        "title": "Ověřovací kód",
+        "description": "Tento účet používá MFA. Zadejte 6místný kód (nebo záložní kód).",
+        "data": { "code": "Kód" }
+      }
+    },
+    "error": {
+      "cannot_connect": "Řídicí jednotku se nepodařilo kontaktovat",
+      "invalid_auth": "Nesprávné uživatelské jméno nebo heslo, nebo uživatel nemá oprávnění Nastavení",
+      "invalid_code": "Nesprávný ověřovací kód",
+      "unexpected_response": "Adresa odpověděla, ale ne jako řídicí jednotka topení. Zkontrolujte IP adresu a že jednotka používá nejnovější firmware.",
+      "unknown": "Neočekávaná chyba. Podrobnosti najdete v protokolu Home Assistant."
+    },
+    "abort": { "already_configured": "Toto topení je již nastaveno" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "Stav" },
+      "core_temperature": { "name": "Teplota jádra" },
+      "cabin_temperature": { "name": "Teplota kabiny" },
+      "voltage": { "name": "Napětí" },
+      "current": { "name": "Proud" },
+      "glow_output": { "name": "Výstup žhavicí svíčky" },
+      "fan_output": { "name": "Výstup ventilátoru" },
+      "pump_rate": { "name": "Frekvence palivového čerpadla" },
+      "last_run": { "name": "Doba posledního běhu" },
+      "average_runtime": { "name": "Průměrná doba běhu" },
+      "total_runtime": { "name": "Celková doba běhu" },
+      "ip_address": { "name": "IP adresa" },
+      "wifi_network": { "name": "Aktivní síť Wi-Fi" },
+      "sta_status": { "name": "Stav stanice" },
+      "ap_status": { "name": "Stav přístupového bodu" },
+      "firmware_version": { "name": "Nainstalovaná verze" },
+      "fault_message": { "name": "Hlášení poruchy" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "Žhavicí svíčka" },
+      "fan_on": { "name": "Ventilátor" },
+      "pump_on": { "name": "Palivové čerpadlo" },
+      "schedule_active": { "name": "Plán aktivní" },
+      "fault": { "name": "Porucha" },
+      "sta_connected": { "name": "Wi-Fi připojeno" }
+    },
+    "button": {
+      "emergency_stop": { "name": "Nouzové zastavení" },
+      "clear_fault": { "name": "Smazat poruchu" }
+    },
+    "number": {
+      "power_level": { "name": "Úroveň výkonu" },
+      "target_temperature": { "name": "Cílová teplota" },
+      "fan_speed": { "name": "Rychlost ventilátoru" },
+      "fuel_pump_rate": { "name": "Frekvence palivového čerpadla" }
+    },
+    "select": {
+      "operating_mode": { "name": "Provozní režim" }
+    },
+    "switch": {
+      "power": { "name": "Výkon" }
+    }
+  }
+}

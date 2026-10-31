@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "Melden Sie sich mit einem WebUI-Konto an, das die Berechtigung „Einstellungen“ hat. Ihr Passwort wird nur einmal verwendet, um einen API-Schlüssel abzurufen, und nicht gespeichert.",
+        "data": { "host": "Host / IP-Adresse", "username": "Benutzername", "password": "Passwort" }
+      },
+      "mfa": {
+        "title": "Authentifizierungscode",
+        "description": "Dieses Konto verwendet MFA. Geben Sie den 6-stelligen Code (oder einen Wiederherstellungscode) ein.",
+        "data": { "code": "Code" }
+      }
+    },
+    "error": {
+      "cannot_connect": "Controller nicht erreichbar",
+      "invalid_auth": "Benutzername oder Passwort falsch, oder dem Benutzer fehlt die Berechtigung „Einstellungen“",
+      "invalid_code": "Falscher Authentifizierungscode",
+      "unexpected_response": "Diese Adresse hat geantwortet, aber nicht wie ein Heizungs-Controller. Prüfen Sie die IP-Adresse und ob auf dem Controller die neueste Firmware läuft.",
+      "unknown": "Unerwarteter Fehler. Details finden Sie im Home-Assistant-Protokoll."
+    },
+    "abort": { "already_configured": "Diese Heizung ist bereits eingerichtet" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "Status" },
+      "core_temperature": { "name": "Kerntemperatur" },
+      "cabin_temperature": { "name": "Kabinentemperatur" },
+      "voltage": { "name": "Spannung" },
+      "current": { "name": "Strom" },
+      "glow_output": { "name": "Glühkerzenausgang" },
+      "fan_output": { "name": "Lüfterausgang" },
+      "pump_rate": { "name": "Kraftstoffpumpenrate" },
+      "last_run": { "name": "Dauer des letzten Laufs" },
+      "average_runtime": { "name": "Durchschnittliche Laufzeit" },
+      "total_runtime": { "name": "Gesamtlaufzeit" },
+      "ip_address": { "name": "IP-Adresse" },
+      "wifi_network": { "name": "Aktives WLAN-Netzwerk" },
+      "sta_status": { "name": "Stationsstatus" },
+      "ap_status": { "name": "Access-Point-Status" },
+      "firmware_version": { "name": "Installierte Version" },
+      "fault_message": { "name": "Fehlermeldung" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "Glühkerze" },
+      "fan_on": { "name": "Lüfter" },
+      "pump_on": { "name": "Kraftstoffpumpe" },
+      "schedule_active": { "name": "Zeitplan aktiv" },
+      "fault": { "name": "Fehler" },
+      "sta_connected": { "name": "WLAN verbunden" }
+    },
+    "button": {
+      "emergency_stop": { "name": "Not-Aus" },
+      "clear_fault": { "name": "Fehler löschen" }
+    },
+    "number": {
+      "power_level": { "name": "Leistungsstufe" },
+      "target_temperature": { "name": "Zieltemperatur" },
+      "fan_speed": { "name": "Lüfterdrehzahl" },
+      "fuel_pump_rate": { "name": "Kraftstoffpumpen-Rate" }
+    },
+    "select": {
+      "operating_mode": { "name": "Betriebsmodus" }
+    },
+    "switch": {
+      "power": { "name": "Leistung" }
+    }
+  }
+}

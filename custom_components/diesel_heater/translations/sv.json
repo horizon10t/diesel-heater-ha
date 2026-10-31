@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "Logga in med ett WebUI-konto som har behörigheten Inställningar. Ditt lösenord används bara en gång för att hämta en API-nyckel och sparas inte.",
+        "data": { "host": "Värd / IP-adress", "username": "Användarnamn", "password": "Lösenord" }
+      },
+      "mfa": {
+        "title": "Autentiseringskod",
+        "description": "Det här kontot använder MFA. Ange den sexsiffriga koden (eller en återställningskod).",
+        "data": { "code": "Kod" }
+      }
+    },
+    "error": {
+      "cannot_connect": "Det gick inte att nå styrenheten",
+      "invalid_auth": "Fel användarnamn eller lösenord, eller så saknar användaren behörigheten Inställningar",
+      "invalid_code": "Fel autentiseringskod",
+      "unexpected_response": "Adressen svarade, men inte som en värmarstyrenhet. Kontrollera IP-adressen och att styrenheten kör den senaste firmwaren.",
+      "unknown": "Oväntat fel. Se Home Assistant-loggen för detaljer."
+    },
+    "abort": { "already_configured": "Den här värmaren är redan konfigurerad" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "Status" },
+      "core_temperature": { "name": "Kärntemperatur" },
+      "cabin_temperature": { "name": "Hyttemperatur" },
+      "voltage": { "name": "Spänning" },
+      "current": { "name": "Ström" },
+      "glow_output": { "name": "Glödstiftsutgång" },
+      "fan_output": { "name": "Fläktutgång" },
+      "pump_rate": { "name": "Bränslepumpens frekvens" },
+      "last_run": { "name": "Senaste körtid" },
+      "average_runtime": { "name": "Genomsnittlig körtid" },
+      "total_runtime": { "name": "Total körtid" },
+      "ip_address": { "name": "IP-adress" },
+      "wifi_network": { "name": "Aktivt Wi-Fi-nätverk" },
+      "sta_status": { "name": "Stationsstatus" },
+      "ap_status": { "name": "Åtkomstpunktens status" },
+      "firmware_version": { "name": "Installerad version" },
+      "fault_message": { "name": "Felmeddelande" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "Glödstift" },
+      "fan_on": { "name": "Fläkt" },
+      "pump_on": { "name": "Bränslepump" },
+      "schedule_active": { "name": "Schema aktivt" },
+      "fault": { "name": "Fel" },
+      "sta_connected": { "name": "Wi-Fi ansluten" }
+    },
+    "button": {
+      "emergency_stop": { "name": "Nödstopp" },
+      "clear_fault": { "name": "Rensa fel" }
+    },
+    "number": {
+      "power_level": { "name": "Effektnivå" },
+      "target_temperature": { "name": "Måltemperatur" },
+      "fan_speed": { "name": "Fläkthastighet" },
+      "fuel_pump_rate": { "name": "Bränslepumpens takt" }
+    },
+    "select": {
+      "operating_mode": { "name": "Driftläge" }
+    },
+    "switch": {
+      "power": { "name": "Effekt" }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Diesel Heater Controller",
+        "description": "Inicie sesión con una cuenta de WebUI que tenga el permiso Ajustes. Su contraseña solo se usa una vez para obtener una clave API y no se guarda.",
+        "data": { "host": "Host / dirección IP", "username": "Usuario", "password": "Contraseña" }
+      },
+      "mfa": {
+        "title": "Código de autenticación",
+        "description": "Esta cuenta usa MFA. Introduzca el código de 6 dígitos (o un código de recuperación).",
+        "data": { "code": "Código" }
+      }
+    },
+    "error": {
+      "cannot_connect": "No se pudo conectar con el controlador",
+      "invalid_auth": "Usuario o contraseña incorrectos, o el usuario no tiene el permiso Ajustes",
+      "invalid_code": "Código de autenticación incorrecto",
+      "unexpected_response": "Esa dirección respondió, pero no como un controlador de calefactor. Compruebe la dirección IP y que el controlador tenga el firmware más reciente.",
+      "unknown": "Error inesperado. Consulte el registro de Home Assistant para más detalles."
+    },
+    "abort": { "already_configured": "Este calefactor ya está configurado" }
+  },
+  "entity": {
+    "sensor": {
+      "status": { "name": "Estado" },
+      "core_temperature": { "name": "Temperatura del núcleo" },
+      "cabin_temperature": { "name": "Temperatura de la cabina" },
+      "voltage": { "name": "Voltaje" },
+      "current": { "name": "Corriente" },
+      "glow_output": { "name": "Salida de bujía incandescente" },
+      "fan_output": { "name": "Salida del ventilador" },
+      "pump_rate": { "name": "Frecuencia de la bomba de combustible" },
+      "last_run": { "name": "Duración de la última ejecución" },
+      "average_runtime": { "name": "Tiempo de funcionamiento medio" },
+      "total_runtime": { "name": "Tiempo de funcionamiento total" },
+      "ip_address": { "name": "Dirección IP" },
+      "wifi_network": { "name": "Red Wi-Fi activa" },
+      "sta_status": { "name": "Estado de la estación" },
+      "ap_status": { "name": "Estado del punto de acceso" },
+      "firmware_version": { "name": "Versión instalada" },
+      "fault_message": { "name": "Mensaje de fallo" }
+    },
+    "binary_sensor": {
+      "glow_on": { "name": "Bujía incandescente" },
+      "fan_on": { "name": "Ventilador" },
+      "pump_on": { "name": "Bomba de combustible" },
+      "schedule_active": { "name": "Programación activa" },
+      "fault": { "name": "Fallo" },
+      "sta_connected": { "name": "Wi-Fi conectado" }
+    },
+    "button": {
+      "emergency_stop": { "name": "Parada de emergencia" },
+      "clear_fault": { "name": "Borrar fallo" }
+    },
+    "number": {
+      "power_level": { "name": "Nivel de potencia" },
+      "target_temperature": { "name": "Temperatura objetivo" },
+      "fan_speed": { "name": "Velocidad del ventilador" },
+      "fuel_pump_rate": { "name": "Caudal de la bomba de combustible" }
+    },
+    "select": {
+      "operating_mode": { "name": "Modo de funcionamiento" }
+    },
+    "switch": {
+      "power": { "name": "Potencia" }
+    }
+  }
+}

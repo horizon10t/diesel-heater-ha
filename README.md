@@ -38,6 +38,7 @@ Copy `custom_components/diesel_heater` into `/config/custom_components/`, restar
 | `number.diesel_heater_target_temperature` | 5-35 °C |
 | `switch.diesel_heater_power` | start / stop |
 | `button.diesel_heater_emergency_stop` | emergency stop (immediate shutdown, then cooldown) |
+| `button.diesel_heater_clear_fault` | clear a fault, same as Clear in the web interface (waits for the fault cooldown) |
 
 **Measurements**
 
@@ -84,6 +85,7 @@ The card is installed separately through HACS from [horizon10t/diesel-heater-lov
 | `/api/ha/mode` | POST | `mode=thermostat\|power`, `level=1..10`, `target=<whole °C>` |
 | `/api/ha/power` | POST | `on=true\|false` |
 | `/api/ha/estop` | POST | Emergency stop |
+| `/api/ha/fault/clear` | POST | Clear a fault (same as the web interface Clear button) |
 | `/api/ha/key` | GET/POST | Read / regenerate the key (WebUI session with Settings permission) |
 
 Send the key in the `X-API-Key` header. Anyone on your network with the key can start and stop the heater, so regenerate it if it leaks.

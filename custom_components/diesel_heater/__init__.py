@@ -45,7 +45,8 @@ class HeaterEntity(CoordinatorEntity[HeaterCoordinator]):
 
     def __init__(self, coordinator: HeaterCoordinator, key: str, name: str) -> None:
         super().__init__(coordinator)
-        self._attr_name = name
+        # The visible name comes from translations/<language>.json.
+        self._attr_translation_key = key
         self._attr_unique_id = f"{coordinator.host}_{key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, coordinator.host)},

@@ -69,6 +69,13 @@ class HeaterClient:
     async def emergency_stop(self) -> dict:
         return await self._request("POST", "/api/ha/estop")
 
+    async def clear_fault(self) -> dict:
+        return await self._request("POST", "/api/ha/fault/clear")
+
+    async def tune(self, **fields) -> dict:
+        """Fan speed (fan, %) and/or fuel pump rate (pumpHz) while in Power mode."""
+        return await self._request("POST", "/api/ha/tune", {k: str(v) for k, v in fields.items()})
+
     async def set_power(self, on: bool) -> dict:
         return await self._request("POST", "/api/ha/power", {"on": "true" if on else "false"})
 
